@@ -4,6 +4,7 @@ import '../providers/report_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/summary_cards.dart';
 import '../widgets/daily_pnl_list.dart';
+import '../widgets/scrip_pnl_list.dart';
 import '../widgets/holdings_list.dart';
 import '../widgets/charges_card.dart';
 
@@ -27,7 +28,7 @@ class StocksPnlScreen extends StatelessWidget {
         ],
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 4,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             SliverToBoxAdapter(
@@ -87,8 +88,11 @@ class StocksPnlScreen extends StatelessWidget {
                   unselectedLabelStyle: Theme.of(context).textTheme.bodySmall,
                   dividerHeight: 1,
                   dividerColor: AppTheme.divider,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
                   tabs: [
                     Tab(text: 'Daily P&L (${report.dailyPnl.length})'),
+                    Tab(text: 'Company (${report.realisedScrips.length})'),
                     Tab(text: 'Holdings (${report.unrealisedScrips.length})'),
                     const Tab(text: 'Charges'),
                   ],
@@ -99,6 +103,7 @@ class StocksPnlScreen extends StatelessWidget {
           body: TabBarView(
             children: [
               DailyPnlList(dailyPnl: report.dailyPnl),
+              ScripPnlList(scrips: report.realisedScrips),
               HoldingsList(
                 holdings: report.unrealisedScrips,
                 totalValue: report.unrealisedTrades.fold(

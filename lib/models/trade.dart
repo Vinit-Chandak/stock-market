@@ -159,3 +159,37 @@ class StockReport {
     return days;
   }
 }
+
+class Dividend {
+  final String companyName;
+  final String isin;
+  final DateTime exDate;
+  final int numberOfShares;
+  final double dividendPerShare;
+  final double netDividendAmount;
+
+  Dividend({
+    required this.companyName,
+    required this.isin,
+    required this.exDate,
+    required this.numberOfShares,
+    required this.dividendPerShare,
+    required this.netDividendAmount,
+  });
+}
+
+class DividendReport {
+  final String clientName;
+  final String clientCode;
+  final String period;
+  final List<Dividend> dividends;
+  final double totalDividend;
+
+  DividendReport({
+    required this.clientName,
+    required this.clientCode,
+    required this.period,
+    required this.dividends,
+    required this.totalDividend,
+  });
+}
