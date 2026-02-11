@@ -14,7 +14,7 @@ class SummaryCards extends StatelessWidget {
 
     return Column(
       children: [
-        // Main P&L card
+        // Main P&L card - Realised
         Card(
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -22,7 +22,7 @@ class SummaryCards extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Net P&L',
+                  'Realised P&L',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 6),
@@ -30,12 +30,12 @@ class SummaryCards extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '${report.netPnl >= 0 ? '+' : ''}${fmt.format(report.netPnl)}',
+                      '${report.realisedPnl >= 0 ? '+' : ''}${fmt.format(report.realisedPnl)}',
                       style: Theme.of(context)
                           .textTheme
                           .headlineLarge
                           ?.copyWith(
-                            color: AppTheme.pnlColor(report.netPnl),
+                            color: AppTheme.pnlColor(report.realisedPnl),
                             fontWeight: FontWeight.w700,
                           ),
                     ),
@@ -43,38 +43,23 @@ class SummaryCards extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4),
                       child: Icon(
-                        report.netPnl >= 0
+                        report.realisedPnl >= 0
                             ? Icons.trending_up_rounded
                             : Icons.trending_down_rounded,
-                        color: AppTheme.pnlColor(report.netPnl),
+                        color: AppTheme.pnlColor(report.realisedPnl),
                         size: 22,
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'After charges: ${report.netPnlAfterCharges >= 0 ? '+' : ''}${fmt.format(report.netPnlAfterCharges)}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppTheme.pnlColor(report.netPnlAfterCharges),
-                      ),
                 ),
               ],
             ),
           ),
         ),
         const SizedBox(height: 10),
-        // Realised / Unrealised row
+        // Unrealised / Charges row
         Row(
           children: [
-            Expanded(
-              child: _MiniCard(
-                label: 'Realised',
-                value: report.realisedPnl,
-                fmt: fmt,
-              ),
-            ),
-            const SizedBox(width: 10),
             Expanded(
               child: _MiniCard(
                 label: 'Unrealised',
